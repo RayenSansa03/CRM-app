@@ -1,24 +1,86 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const Product = require("./models/product.model.js");
-const productRoute = require("./routes/product.route.js");
+const path = require("path");
+const { expressjwt: jwt } = require("express-jwt");
+
+const clientRoute = require("./routes/client.route");
+const projectRoute = require("./routes/project.route");
+const equipRoute = require("./routes/equipment.route");
+const reservationRoute = require("./routes/reservation.route");
+const taskRoute = require("./routes/task.route");
+const qrRoute = require("./routes/qr.route");
+const employeRoutes = require("./routes/employe.route");
+const salleRoute = require("./routes/salle.route");
+const formationRoute = require("./routes/formation.route");
+const authRoutes = require("./routes/auth.route");
+
 const app = express();
 
-// middleware
+// Vérification des variables d'environnement
+if (
+  !process.env.JWT_SECRET ||
+  !process.env.MONGO_URI ||
+  !process.env.EMAIL_USER ||
+  !process.env.EMAIL_PASS
+) {
+  console.error(
+    "Les variables d'environnement sont manquantes. Assurez-vous que le fichier .env est configuré correctement."
+  );
+  process.exit(1);
+}
+
+// Middleware pour vérifier les tokens JWT
+const authMiddleware = jwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"],
+  requestProperty: "user",
+}).unless({ path: ["/api/auth/signup", "/api/auth/login"] });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// routes
-app.use("/api/products", productRoute);
+// Servir des fichiers statiques
+app.use(express.static(path.join(__dirname, "Dashboard")));
+app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
+
+// Routes publiques
+app.use("/api/auth", authRoutes);
+
+// Routes protégées par JWT
+app.use(authMiddleware);
+app.use("/api/clients", clientRoute);
+app.use("/api/projects", projectRoute);
+app.use("/api/equipments", equipRoute);
+app.use("/api/reservations", reservationRoute);
+app.use("/api/tasks", taskRoute);
+app.use("/api/qr", qrRoute);
+app.use("/api/employes", employeRoutes);
+app.use("/api/salles", salleRoute);
+app.use("/api/formations", formationRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello from Node API Server Updated");
 });
 
+app.get("/signup", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "signup.html"));
+});
+
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
+
+app.get("/addClient", (req, res) => {
+  res.sendFile(path.join(__dirname, "Dashboard", "html", "addClient.html"));
+});
+
+// Connexion à MongoDB
 mongoose
-  .connect(
-    "mongodb+srv://rsansa204:kHXQpt2VuBf79d0x@cluster0.u5twbj9.mongodb.net/Node?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Connected to database!");
     app.listen(3000, () => {
@@ -28,3 +90,12 @@ mongoose
   .catch((error) => {
     console.error("Connection failed", error);
   });
+
+// Middleware de gestion des erreurs
+app.use((err, req, res, next) => {
+  if (err.name === "UnauthorizedError") {
+    return res.status(401).send("Invalid token");
+  }
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
