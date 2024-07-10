@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const path = require("path");
+const mongoose = require("mongoose");
 const { expressjwt: jwt } = require("express-jwt");
 
 const clientRoute = require("./routes/client.route");
@@ -35,14 +35,25 @@ const authMiddleware = jwt({
   secret: process.env.JWT_SECRET,
   algorithms: ["HS256"],
   requestProperty: "user",
-}).unless({ path: ["/api/auth/signup", "/api/auth/login"] });
-
+}).unless({
+  path: [
+    "/api/auth/signup",
+    "/api/auth/login",
+    { url: "/api/clients", methods: ["POST"] }, // Exclure la route POST /api/clients
+    { url: "/api/equipments", methods: ["POST"] },
+    { url: "/api/projects", methods: ["POST"] },
+    { url: "/api/reservations", methods: ["POST"] }, // Exclure la route POST /api/projects
+    // Exclure la route POST /api/projects
+    // Exclure la route POST /api/equipments
+  ],
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Servir des fichiers statiques
-app.use(express.static(path.join(__dirname, "Dashboard")));
-app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
+// Servir des fichiers statiques Angular
+app.use(
+  express.static(path.join(__dirname, "angular-client/dist/angular-client"))
+);
 
 // Routes publiques
 app.use("/api/auth", authRoutes);
@@ -59,20 +70,11 @@ app.use("/api/employes", employeRoutes);
 app.use("/api/salles", salleRoute);
 app.use("/api/formations", formationRoute);
 
-app.get("/", (req, res) => {
-  res.send("Hello from Node API Server Updated");
-});
-
-app.get("/signup", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "signup.html"));
-});
-
-app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "login.html"));
-});
-
-app.get("/addClient", (req, res) => {
-  res.sendFile(path.join(__dirname, "Dashboard", "html", "addClient.html"));
+// Gérer toutes les autres routes avec Angular
+app.get("*", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "angular-client/dist/angular-client/index.html")
+  );
 });
 
 // Connexion à MongoDB

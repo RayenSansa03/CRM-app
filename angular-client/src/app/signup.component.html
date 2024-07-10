@@ -1,0 +1,73 @@
+<h2>Inscription</h2>
+<form (ngSubmit)="signup()">
+  <label for="cin">CIN:</label>
+  <input type="text" id="cin" [(ngModel)]="user.cin" name="cin" required />
+
+  <label for="nom">Nom:</label>
+  <input type="text" id="nom" [(ngModel)]="user.nom" name="nom" required />
+
+  <label for="prenom">Prénom:</label>
+  <input
+    type="text"
+    id="prenom"
+    [(ngModel)]="user.prenom"
+    name="prenom"
+    required
+  />
+
+  <label for="dateNaissance">Date de naissance:</label>
+  <input
+    type="date"
+    id="dateNaissance"
+    [(ngModel)]="user.dateNaissance"
+    name="dateNaissance"
+    required
+  />
+
+  <label for="poste">Poste:</label>
+  <input
+    type="text"
+    id="poste"
+    [(ngModel)]="user.poste"
+    name="poste"
+    required
+  />
+
+  <label for="adresseMail">Adresse Mail:</label>
+  <input
+    type="email"
+    id="adresseMail"
+    [(ngModel)]="user.adresseMail"
+    name="adresseMail"
+    required
+  />
+
+  <label for="salaire">Salaire:</label>
+  <input
+    type="number"
+    id="salaire"
+    [(ngModel)]="user.salaire"
+    name="salaire"
+    required
+  />
+
+  <label for="username">Nom d'utilisateur:</label>
+  <input
+    type="text"
+    id="username"
+    [(ngModel)]="user.username"
+    name="username"
+    required
+  />
+
+  <label for="password">Mot de passe:</label>
+  <input
+    type="password"
+    id="password"
+    [(ngModel)]="user.password"
+    name="password"
+    required
+  />
+
+  <button type="submit">S'inscrire</button>
+</form>
