@@ -28,16 +28,15 @@ if (!process.env.JWT_SECRET || !process.env.MONGO_URI || !process.env.EMAIL_USER
   process.exit(1);
 }
 
-// Configuration de CORS
+// Middleware CORS
 const corsOptions = {
   origin: "http://localhost:4200",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  preflightContinue: false,
-  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
+// Middleware pour parser les JSON et les URL encodées
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -59,33 +58,42 @@ const authMiddleware = jwt({
     { url: "/api/salles", methods: ["GET"] },
   ],
 });
+app.use(authMiddleware);
 
 // Connexion à la base de données MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}).then(() => {
-  console.log("Connexion à MongoDB réussie !");
-}).catch((err) => {
-  console.error("Erreur de connexion à MongoDB :", err.message);
-});
+})
+  .then(() => {
+    console.log("Connexion à MongoDB réussie !");
+  })
+  .catch((err) => {
+    console.error("Erreur de connexion à MongoDB :", err.message);
+  });
 
 // Routes publiques
 app.use("/api/auth", require("./routes/auth.route"));
 
 // Routes protégées par JWT
-app.use(authMiddleware);
-app.use("/api/clients", require("./routes/client.route"));
-app.use("/api/projects", require("./routes/project.route"));
-app.use("/api/equipments", require("./routes/equipment.route"));
-app.use("/api/reservations", require("./routes/reservation.route"));
-app.use("/api/tasks", require("./routes/task.route"));
-app.use("/api/qr", require("./routes/qr.route"));
-app.use("/api/employes", require("./routes/employe.route"));
-app.use("/api/salles", require("./routes/salle.route"));
-app.use("/api/formations", require("./routes/formation.route"));
-app.use("/api/events", require("./routes/event.routes"));
-app.use("/api/teams", require("./routes/team.route"));
+const protectedRoutes = [
+  { path: "/api/clients", route: require("./routes/client.route") },
+  { path: "/api/projects", route: require("./routes/project.route") },
+  { path: "/api/equipments", route: require("./routes/equipment.route") },
+  { path: "/api/reservations", route: require("./routes/reservation.route") },
+  { path: "/api/tasks", route: require("./routes/task.route") },
+  { path: "/api/qr", route: require("./routes/qr.route") },
+  { path: "/api/employes", route: require("./routes/employe.route") },
+  { path: "/api/salles", route: require("./routes/salle.route") },
+  { path: "/api/formations", route: require("./routes/formation.route") },
+  { path: "/api/events", route: require("./routes/event.routes") },
+  { path: "/api/teams", route: require("./routes/team.route") },
+  { path: "/api/livraisons", route: require("./routes/livraison.routes") },
+];
+
+protectedRoutes.forEach(({ path, route }) => {
+  app.use(path, route);
+});
 
 // Ajout de salle avec image
 app.post('/api/salles', upload, async (req, res) => {
@@ -109,12 +117,13 @@ app.post('/api/salles', upload, async (req, res) => {
 // Servir les fichiers statiques
 app.use('/uploads', express.static('uploads'));
 
-// Gestion des erreurs
+// Middleware de gestion des erreurs
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Something broke!");
+  res.status(500).json({ message: "Une erreur est survenue sur le serveur." });
 });
 
+// Démarrer le serveur
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);

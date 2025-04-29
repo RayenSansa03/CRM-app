@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com"/>
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png"/>
+<link rel="shortcut icon" href="../../assets/images/favicon.png"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<meta charSet="utf-8"/>
+<title>Materio - Material Design React Admin Template
+</title>
+<meta name="description" content="Materio – Material Design React Admin Dashboard Template – is the most developer friendly &amp; highly customizable Admin Dashboard Template based on MUI v5."/>
+<meta name="keywords" content="Material Design, MUI, Admin Template, React Admin Template"/>
+<meta name="viewport" content="initial-scale=1, width=device-width"/>
+<meta name="next-head-count" content="5"/>
+<link rel="preload" href="/_next/static/css/6d5ec1825ef0b9a5.css" as="style"/>
+<link rel="stylesheet" href="/_next/static/css/6d5ec1825ef0b9a5.css" data-n-g=""/>
+
+
+
+</head>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+
+        <app-expbar2></app-expbar2>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <app-expbar></app-expbar>
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container">
+              <h2>Gestion des Opportunités</h2>
+            
+              <!-- Formulaire pour ajouter une opportunité -->
+              <form (ngSubmit)="onSubmit()" #opportunityForm="ngForm" class="form-grid">
+                
+                <!-- Section Nom de l'opportunité -->
+                <div class="form-field">
+                  <label for="opportunityName">Nom de l'opportunité</label>
+                  <input type="text" id="opportunityName" [(ngModel)]="opportunity.name" name="opportunityName" class="p-inputtext" placeholder="Nom de l'opportunité" required/>
+                </div>
+            
+                <!-- Section Valeur estimée -->
+                <div class="form-field">
+                  <label for="value">Valeur estimée (€)</label>
+                  <input type="number" id="value" [(ngModel)]="opportunity.value" name="value" class="p-inputtext" placeholder="Valeur estimée" required/>
+                </div>
+            
+                <!-- Section Étape actuelle -->
+                <div class="form-field">
+                  <label for="stage">Étape actuelle</label>
+                  <p-dropdown [(ngModel)]="opportunity.stage" [options]="stages" placeholder="Sélectionnez l'étape" name="stage" required></p-dropdown>
+                </div>
+            
+                <!-- Section Prochaine action -->
+                <div class="form-field">
+                  <label for="nextAction">Prochaine action</label>
+                  <input type="text" id="nextAction" [(ngModel)]="opportunity.nextAction" name="nextAction" class="p-inputtext" placeholder="Prochaine action à entreprendre" required/>
+                </div>
+            
+                <!-- Bouton pour soumettre le formulaire -->
+                <div class="form-actions">
+                  <button type="submit" pButton label="Ajouter Opportunité" class="p-button-success"></button>
+                </div>
+              </form>
+            
+              <!-- Tableau des opportunités ajoutées -->
+              <p-table [value]="opportunities" class="table" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Nom</th>
+                    <th>Valeur (€)</th>
+                    <th>Étape</th>
+                    <th>Prochaine Action</th>
+                  </tr>
+                </ng-template>
+              
+                <ng-template pTemplate="body" let-opportunity>
+                  <tr>
+                    <td>{{ opportunity.name }}</td>
+                    <td>{{ opportunity.value }}</td>
+                    <td>{{ opportunity.stage }}</td>
+                    <td>{{ opportunity.nextAction }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              
+            </div>
+            
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with ❤️ by
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                </div>
+                <div>
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+                  <a
+                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                    target="_blank"
+                    class="footer-link me-4"
+                    >Documentation</a
+                  >
+
+                  <a
+                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                    target="_blank"
+                    class="footer-link me-4"
+                    >Support</a
+                  >
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <div class="buy-now">
+      <a
+        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
+        target="_blank"
+        class="btn btn-danger btn-buy-now"
+        >Contactez nous</a
+      >
+    </div>
+
+
+  </body>
+  </html>
+
+
+

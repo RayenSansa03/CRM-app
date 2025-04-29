@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta charset="utf-8"/>
+    <title>Gestion des Prospects</title>
+    <meta name="description" content="Gestion des prospects avec formulaire et tableau."/>
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+    <link rel="stylesheet" href="/_next/static/css/6d5ec1825ef0b9a5.css" />
+</head>
+<body>
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <app-expbar2></app-expbar2>
+            <div class="layout-page">
+                <app-expbar></app-expbar>
+                <div class="content-wrapper">
+                  <div class="container">
+                    <h2>Gestion des Prospects</h2>
+                  
+                    <!-- Formulaire d'ajout de prospects -->
+                    <form (ngSubmit)="onSubmit()" #prospectForm="ngForm" class="form-grid">
+                      
+                      <!-- Section Nom -->
+                      <div class="form-field">
+                        <label for="name">Nom du prospect</label>
+                        <input type="text" id="name" [(ngModel)]="prospect.name" name="name" class="p-inputtext" placeholder="Entrez le nom du prospect" required/>
+                      </div>
+                  
+                      <!-- Section Email -->
+                      <div class="form-field">
+                        <label for="email">Email du prospect</label>
+                        <input type="email" id="email" [(ngModel)]="prospect.email" name="email" class="p-inputtext" placeholder="Entrez l'email du prospect" required/>
+                      </div>
+                  
+                      <!-- Section Chips (Catégories d'intérêt) -->
+                      <div class="form-field">
+                        <label for="tags">Catégories d'intérêt (Chips)</label>
+                        <p-chips [(ngModel)]="prospect.tags" name="tags" placeholder="Ajoutez des catégories" separator="," class="p-inputtext"></p-chips>
+                      </div>
+                  
+                      <!-- Bouton pour soumettre le formulaire -->
+                      <div class="form-actions">
+                        <button type="submit" pButton label="Ajouter Prospect" class="p-button-success"></button>
+                      </div>
+                      
+                    </form>
+                  
+                    <!-- Tableau des prospects ajoutés -->
+                    <p-table [value]="prospects" class="table" responsiveLayout="scroll">
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th>Nom</th>
+                          <th>Email</th>
+                          <th>Catégories d'intérêt</th>
+                        </tr>
+                      </ng-template>
+                  
+                      <ng-template pTemplate="body" let-prospect>
+                        <tr>
+                          <td>{{ prospect.name }}</td>
+                          <td>{{ prospect.email }}</td>
+                          <td>
+                            <div *ngFor="let tag of prospect.tags" class="p-chip">{{ tag }}</div>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                  
+                  
+
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                            <div class="mb-2 mb-md-0">
+                                © <script>document.write(new Date().getFullYear());</script>, made with ❤️ by <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                            </div>
+                            <div>
+                                <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                                <a href="https://themeselection.com/" class="footer-link me-4" target="_blank">More Themes</a>
+                                <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
+                                <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="footer-link me-4">Support</a>
+                            </div>
+                        </div>
+                    </footer>
+
+                    <div class="content-backdrop fade"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+
+    <div class="buy-now">
+        <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank" class="btn btn-danger btn-buy-now">Contactez nous</a>
+    </div>
+</body>
+</html>

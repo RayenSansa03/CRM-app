@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta et liens omis pour la clarté -->
+    <title>Gestion des Salles</title>
+  </head>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <app-expbar2></app-expbar2>
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <app-expbar></app-expbar>
+
+          <div class="container">
+            <!-- Step Progress Bar -->
+            <div class="step-progress">
+              <div class="step active">1</div>
+              <div class="step">2</div>
+              <div class="step">3</div>
+              <div class="step">4</div>
+              <div class="step">5</div>
+            </div>
+          
+            <!-- Formulaire de Détails de la Salle -->
+            <form [formGroup]="salleForm" (ngSubmit)="onSubmit()" (input)="updateStepProgress()">
+              <div class="form-section">
+                <h3>Détails de la Salle</h3>
+                <p>Entrez les détails de la salle.</p>
+            
+                <div class="form-group">
+                  <label for="image">Télécharger une Image:</label>
+                  <p-fileUpload name="image" mode="basic" accept="image/*" [maxFileSize]="1000000" (onSelect)="onFileSelected($event)"></p-fileUpload>
+                </div>
+            
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="nom">Nom:</label>
+                    <input id="nom" pInputText formControlName="nom" type="text" />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="prixParJour">Prix Par Jour:</label>
+                    <input id="prixParJour" pInputNumber formControlName="prixParJour" mode="decimal" min="0" step="0.01" />
+                  </div>
+                </div>
+            
+                <div class="form-row">
+                  <div class="form-group smaller">
+                    <label for="capaciteMaximale">Capacité Maximale:</label>
+                    <input id="capaciteMaximale" pInputNumber formControlName="capaciteMaximale" mode="decimal" min="1" max="1000" step="1" />
+                  </div>
+                  
+                  <div class="form-group smaller">
+                    <label for="etat">État:</label>
+                    <p-dropdown 
+                      id="etat"
+                      class="custom-dropdown" 
+                      [options]="etatOptions" 
+                      formControlName="etat" 
+                      placeholder="Sélectionner un état" 
+                      [style]="{'width':'100%'}"
+                      [showClear]="true">
+                    </p-dropdown>
+                  </div>
+                </div>
+                
+            
+                <div class="form-group">
+                  <label for="description">Description:</label>
+                  <textarea id="description" formControlName="description"></textarea>
+                </div>
+            
+                <div class="form-actions">
+                  <button type="button" class="btn btn-secondary" (click)="previousStep()">Précédent</button>
+                  <button type="button" class="btn btn-primary" (click)="nextStep()">Suivant</button>
+                </div>
+              </div>
+            </form>
+            
+            
+       
+        
+         </div>
+         
+          <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+              <div class="mb-2 mb-md-0">
+                ©
+                <script>document.write(new Date().getFullYear());</script>, fait avec ❤️ par
+                <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+              </div>
+              <div>
+                <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">Licence</a>
+                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Plus de Thèmes</a>
+                <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
+                <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="footer-link me-4">Support</a>
+              </div>
+            </div>
+          </footer>
+          <!-- / Footer -->
+
+          <div class="content-backdrop fade"></div>
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <div class="buy-now">
+      <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank" class="btn btn-danger btn-buy-now">Contactez-nous</a>
+    </div>
+
+    <script>
+      // Scripts supplémentaires si nécessaire
+    </script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "mymy": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": {
+              "base": "dist/mymy"
+            },
+            "index": "src/index.html",
+            "polyfills": ["zone.js", "@angular/localize/init"],
+            "tsConfig": "tsconfig.app.json",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "src/styles.css",
+              "node_modules/swiper/swiper-bundle.min.css",
+              "node_modules/boxicons/css/boxicons.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/leaflet/dist/leaflet.css",
+              "./node_modules/ag-grid-community/styles/ag-grid.css",
+              "./node_modules/ag-grid-community/styles/ag-theme-quartz.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/ol/ol.css",
+              "node_modules/leaflet/dist/leaflet.css"
+
+            ],
+            "scripts": [
+              "node_modules/swiper/swiper-bundle.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/leaflet/dist/leaflet.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
+            "browser": "src/main.ts"
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {},
+          "configurations": {
+            "production": {
+              "buildTarget": "mymy:build:production"
+            },
+            "development": {
+              "buildTarget": "mymy:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "mymy:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing",
+              "@angular/localize/init"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "node_modules/leaflet/dist"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "src/styles.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/boxicons/css/boxicons.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/leaflet/dist/leaflet.css"
+            ],
+            "scripts": ["node_modules/jquery/dist/jquery.min.js"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "1c89c1f4-26e2-4db5-9b64-a96476d82800"
+  }
+}

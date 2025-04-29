@@ -1,0 +1,475 @@
+      <!-- Menu -->
+
+      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" dir="rtl">
+        <div class="app-brand demo">
+          <a href="index" class="app-brand-link">
+           
+            <span class="app-brand-text demo menu-text fw-bolder ms-2"><img src="../../assets/images/inveepimg.jpg" alt=""></span>
+          </a>
+
+          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+          </a>
+        </div>
+
+        <div class="menu-inner-shadow"></div>
+
+        <ul class="menu-inner py-1" >
+
+ 
+          <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Dashboard</span>
+          </li>
+           <!-- Article -->
+          
+          <li class="menu-item" [class.open]="isArticleOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Unite') || isPageActive('/Marque') || isPageActive('/Categorie') || isPageActive('/Produit') || isPageActive('/Pack') || isPageActive('/Produitrebut') " >
+                    
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleArticle()">
+              <i class=" bx bx-dock-top"></i>
+              
+              <div data-i18n="Article"> {{ 'article.article' | translate }}</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isArticleOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Unite')" (click)="toggleArticle(); ">
+                <a routerLink="/Unite" class="menu-link">
+                  <div data-i18n="Unite"> {{ 'article.unites.unite' | translate }}</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Marque')" (click)="toggleArticle()">
+                <a routerLink="/Marque" class="menu-link">
+                  <div data-i18n="Marque">{{ 'article.Marque.Mrq' | translate }}</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Categorie')" (click)="toggleArticle()">
+                <a routerLink="/Categorie" class="menu-link">
+                  <div data-i18n="Categorie">{{ 'article.Mcatg.catg' | translate }}</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Produit')" (click)="toggleArticle()">
+                <a routerLink="/Produit" class="menu-link">
+                  <div data-i18n="Produit"> {{ 'article.Prod.Pro' | translate }}</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Pack')" (click)="toggleArticle()">
+                <a routerLink="/Pack" class="menu-link">
+                  <div data-i18n="Pack">{{ 'pack.packname' | translate }}</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Produitrebut')" (click)="toggleArticle()">
+                <a routerLink="/Produitrebut" class="menu-link">
+                  <div data-i18n="Produit rebut">Produit rebut</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+           <!-- Services -->
+          
+           <li class="menu-item" [class.open]="isServicesOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Categorie_Service') || isPageActive('/Services') " >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleServices()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Services">{{ 'article.service' | translate }}</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isServicesOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Categorie_Service')" (click)="toggleServices(); ">
+                <a routerLink="/Categorie_Service" class="menu-link">
+                  <div data-i18n="Categorie Service">{{ 'article.catService' | translate }}</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Services')" (click)="toggleServices()">
+                <a routerLink="/Services" class="menu-link">
+                  <div data-i18n="Services">{{ 'article.services' | translate }}</div>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+
+  <!-- Commande -->
+  <li class="menu-item"  [class.active]="isPageActive('/Commande')">
+    <a routerLink="/Commande" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-home-circle"></i>
+      <div data-i18n="Commande">{{ 'sales.commande' | translate }} </div>
+    </a>
+  </li>
+
+
+    <!--  Ventes -->
+    <li class="menu-item"  [class.active]="isPageActive('/Ventes')">
+      <a routerLink="/Ventes" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Ventes">{{ 'ventes.ventes' | translate }}</div>
+      </a>
+    </li>
+
+
+      <!-- Carte Fidelité -->
+      <li class="menu-item"  [class.active]="isPageActive('/Carte_Fidelite')">
+        <a routerLink="/Carte_Fidelite" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Carte Fidelité">{{ 'sharedSales.cartfidel' | translate }} </div>
+        </a>
+      </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+           <!--  Point_de_Vente -->
+          
+           <li class="menu-item" [class.open]="isPoint_de_VenteOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Point_de_Vente')" >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="togglePoint_de_Vente()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Point de Vente">{{ 'Points.pt' | translate }}</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isPoint_de_VenteOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Point_de_Vente')" (click)="togglePoint_de_Vente(); ">
+                <a routerLink="/Point_de_Vente" class="menu-link">
+                  <div data-i18n="Point de Vente principale">Point de Vente principale</div>
+                </a>
+              </li>
+             
+
+            </ul>
+          </li>
+
+
+
+
+
+          <!-- Achat -->
+          <li class="menu-item"  [class.active]="isPageActive('/Achat')">
+            <a routerLink="/Achat" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <div data-i18n="Achat">{{ 'Achats.acht' | translate }} </div>
+            </a>
+          </li>
+
+
+
+
+
+           <!-- caisse -->
+          
+           <li class="menu-item" [class.open]="isCaisseOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Gestion_des_caisses') || isPageActive('/Inventaire_caisse') " >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleCaisse()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Caisse">{{ 'Caisses.cs1' | translate }}</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isCaisseOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Gestion_des_caisses')" (click)="toggleCaisse(); ">
+                <a routerLink="/Gestion_des_caisses" class="menu-link">
+                  <div data-i18n="Gestion des caisses">Gestion des caisses</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Inventaire_caisse')" (click)="toggleCaisse()">
+                <a routerLink="/Inventaire_caisse" class="menu-link">
+                  <div data-i18n="Inventaire caisse">Inventaire caisse</div>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+
+
+           <!-- Document -->
+          
+           <li class="menu-item" [class.open]="isDocumentOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Mes_Devis') || isPageActive('/Mes_Factures') || isPageActive('/Bon_de_sortie') || isPageActive('/Bon_de_livraison') " >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleDocument()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Document">Document</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isDocumentOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Mes_Devis')" (click)="toggleDocument(); ">
+                <a routerLink="/Mes_Devis" class="menu-link">
+                  <div data-i18n="Mes Devis">Mes Devis</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_Factures')" (click)="toggleDocument()">
+                <a routerLink="/Mes_Factures" class="menu-link">
+                  <div data-i18n="Mes_Factures">Mes Factures</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Bon_de_sortie')" (click)="toggleDocument()">
+                <a routerLink="/Bon_de_sortie" class="menu-link">
+                  <div data-i18n="Bon de sortie">Bon de sortie</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Bon_de_livraison')" (click)="toggleDocument()">
+                <a routerLink="/Bon_de_livraison" class="menu-link">
+                  <div data-i18n="Bon de livraison">Bon de livraison</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+           <!-- Zone de livraison -->
+          
+           <li class="menu-item" [class.open]="isZonelivraisonOpen" (click)="toggleActiveClass($event)" [class.active]=" isPageActive('/Tournee') " >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleZonelivraison()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Zone de livraison">Zone de livraison</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isZonelivraisonOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Tournee')" (click)="toggleZonelivraison(); ">
+                <a routerLink="/Tournee" class="menu-link">
+                  <div data-i18n="Tournée">Tournée</div>
+                </a>
+              </li>
+             
+
+            </ul>
+          </li>
+
+
+           <!-- livraison -->
+          
+           <li class="menu-item" [class.open]="isLivraisonsOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Livraisons') || isPageActive('/Livreur') || isPageActive('/Mes_Vehicules')" >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleLivraisons()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Livraisons">Livraisons</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isLivraisonsOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Livraisons')" (click)="toggleLivraisons(); ">
+                <a routerLink="/Livraisons" class="menu-link">
+                  <div data-i18n="Livraisons">Livraisons</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_Vehicules')" (click)="toggleLivraisons()">
+                <a routerLink="/Mes_Vehicules" class="menu-link">
+                  <div data-i18n="Mes Vehicules">Mes Vehicules</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Livreur')" (click)="toggleLivraisons()">
+                <a routerLink="/Livreur" class="menu-link">
+                  <div data-i18n="Livreur">Livreur</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+           <!-- stock -->
+          
+           <li class="menu-item" [class.open]="isStockOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Mes_depots') || isPageActive('/Mes_mouvements')  || isPageActive('/Inventaire') " >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleStock()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Stock">Stock</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isStockOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Mes_depots')" (click)="toggleStock(); ">
+                <a routerLink="/Mes_depots" class="menu-link">
+                  <div data-i18n="Mes depots">Mes depots</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_mouvements')" (click)="toggleStock()">
+                <a routerLink="/Mes_mouvements" class="menu-link">
+                  <div data-i18n="Mes mouvements">Mes mouvements</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Inventaire')" (click)="toggleStock()">
+                <a routerLink="/Inventaire" class="menu-link">
+                  <div data-i18n="Inventaire">Inventaire</div>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+
+
+
+           <!-- transactions -->
+          
+           <li class="menu-item" [class.open]="isTransactionsOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Transactions') || isPageActive('/Mes_credits')  || isPageActive('/Mes_caisses')  || isPageActive('/Mes_depenses') || isPageActive('/Plus_value')" >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleTransactions()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Transactions">Transactions</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isTransactionsOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Transactions')" (click)="toggleTransactions(); ">
+                <a routerLink="/Transactions" class="menu-link">
+                  <div data-i18n="Transactions">Transactions</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_credits')" (click)="toggleTransactions()">
+                <a routerLink="/Mes_credits" class="menu-link">
+                  <div data-i18n="Mes credits">Mes credits</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_caisses')" (click)="toggleTransactions()">
+                <a routerLink="/Mes_caisses" class="menu-link">
+                  <div data-i18n="Mes caisses">Mes caisses</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_depenses')" (click)="toggleTransactions()">
+                <a routerLink="/Mes_depenses" class="menu-link">
+                  <div data-i18n="Mes depenses">Mes depenses</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Plus_value')" (click)="toggleTransactions()">
+                <a routerLink="/Plus_value" class="menu-link">
+                  <div data-i18n="Plus value">Plus value</div>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+
+           <!-- comptabilite -->
+          
+           <li class="menu-item" [class.open]="isComptabiliteOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Retenue_source') " >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleComptabilite()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Comptabilité">Comptabilité</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isComptabiliteOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Retenue_source')" (click)="toggleComptabilite(); ">
+                <a routerLink="/Retenue_source" class="menu-link">
+                  <div data-i18n="Retenue source">Retenue source</div>
+                </a>
+              </li>
+             
+
+            </ul>
+          </li>
+
+
+
+           <!-- relation -->
+          
+           <li class="menu-item" [class.open]="isRelationOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Mes_clients') || isPageActive('/Mes_fournisseurs')  || isPageActive('/Mes_banques')" >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleRelation()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Relation">Relation</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isRelationOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Mes_clients')" (click)="toggleRelation(); ">
+                <a routerLink="/Mes_clients" class="menu-link">
+                  <div data-i18n="Mes clients">Mes clients</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_fournisseurs')" (click)="toggleRelation()">
+                <a routerLink="/Mes_fournisseurs" class="menu-link">
+                  <div data-i18n="Mes fournisseurs">Mes fournisseurs</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_banques')" (click)="toggleRelation()">
+                <a routerLink="/Mes_banques" class="menu-link">
+                  <div data-i18n="Mes banques">Mes banques</div>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+        <!-- Rapport -->
+        <li class="menu-item"  [class.active]="isPageActive('/Rapport')">
+          <a routerLink="/Rapport" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Rapport">Rapport</div>
+          </a>
+        </li>
+
+           <!-- parametres -->
+          
+           <li class="menu-item" [class.open]="isParametresOpen" (click)="toggleActiveClass($event)" [class.active]="isPageActive('/Mes_types') || isPageActive('/Gestion_utilisateurs') || isPageActive('/Gestion_autorisations') || isPageActive('/Mes_configurations') " >
+            
+            <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleParametres()">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Paramétres">Paramétres</div>
+            </a>
+            
+            <ul class="menu-sub" *ngIf="isParametresOpen">
+              <li class="menu-item" [class.active]="isPageActive('/Mes_types')" (click)="toggleParametres(); ">
+                <a routerLink="/Mes_types" class="menu-link">
+                  <div data-i18n="Mes types">Mes types</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Gestion_utilisateurs')" (click)="toggleParametres()">
+                <a routerLink="/Gestion_utilisateurs" class="menu-link">
+                  <div data-i18n="Gestion des utilisateurs">Gestion des utilisateurs</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Gestion_autorisations')" (click)="toggleParametres()">
+                <a routerLink="/Gestion_autorisations" class="menu-link">
+                  <div data-i18n="Gestion des autorisations">Gestion des autorisations</div>
+                </a>
+              </li>
+              <li class="menu-item" [class.active]="isPageActive('/Mes_configurations')" (click)="toggleParametres()">
+                <a routerLink="/Mes_configurations" class="menu-link">
+                  <div data-i18n="Mes configurations">Mes configurations</div>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+      </aside>

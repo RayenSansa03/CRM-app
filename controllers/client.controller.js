@@ -97,12 +97,26 @@ const deleteClient = async (req, res) => {
     console.error("Error deleting client:", error);
     res.status(500).json({ message: error.message });
   }
-};
 
+};
+const autocompleteClients = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const clients = await Client.find({
+      nom: { $regex: query, $options: 'i' } // Case-insensitive search
+    }).limit(10); // Limit results for better performance
+    res.status(200).json(clients);
+  } catch (error) {
+    console.error("Error fetching clients for autocomplete:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
 module.exports = {
   getClients,
   getClient,
   createClient,
   updateClient,
   deleteClient,
+  autocompleteClients
+
 };

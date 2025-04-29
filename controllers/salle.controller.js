@@ -1,5 +1,19 @@
 const Salle = require("../models/salle.model");
+const { v4: uuidv4 } = require("uuid");
 
+// Middleware pour gérer les uploads d'image
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // Dossier où les images seront sauvegardées
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname); // Nom de fichier unique
+  },
+});
+const upload = multer({ storage: storage });
+
+// Récupérer toutes les salles
 const getSalles = async (req, res) => {
   try {
     const salles = await Salle.find({});
@@ -9,6 +23,7 @@ const getSalles = async (req, res) => {
   }
 };
 
+// Récupérer une salle par ID
 const getSalle = async (req, res) => {
   try {
     const { id } = req.params;
@@ -18,17 +33,36 @@ const getSalle = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Créer une nouvelle salle
 const createSalle = async (req, res) => {
   try {
-    console.log('Request Body:', req.body);
-    const salle = await Salle.create(req.body);
+    console.log("Request Body:", req.body);
+
+    // Si une image est uploadée, stockez le chemin
+    const imagePath = req.file ? req.file.path : "";
+
+    // Créer les données de la salle avec un UUID comme identifiant
+    const salleData = {
+      _id: uuidv4(),
+      nom: req.body.nom,
+      prixParJour: req.body.prixParJour,
+      capaciteMaximale: req.body.capaciteMaximale,
+      etat: req.body.etat,
+      description: req.body.description,
+      image: imagePath,
+    };
+
+    // Enregistrer la nouvelle salle dans la base de données
+    const salle = await Salle.create(salleData);
     res.status(200).json(salle);
   } catch (error) {
-    console.error('Error creating salle:', error);
+    console.error("Error creating salle:", error);
     res.status(500).json({ message: error.message });
   }
 };
 
+// Mettre à jour une salle existante
 const updateSalle = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,6 +78,7 @@ const updateSalle = async (req, res) => {
   }
 };
 
+// Supprimer une salle
 const deleteSalle = async (req, res) => {
   try {
     const { id } = req.params;
@@ -65,4 +100,5 @@ module.exports = {
   createSalle,
   updateSalle,
   deleteSalle,
+  upload, // Exporter le middleware upload pour l'utiliser dans les routes
 };
